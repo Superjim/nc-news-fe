@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,
@@ -20,15 +20,10 @@ function Article({ props }) {
     votes,
   } = props;
 
-  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
 
   const handleArticleBodyExpand = () => {
     setExpanded(!expanded);
-  };
-
-  const handleNavigateToArticle = () => {
-    navigate(`/${topic}/articles/${article_id}`);
   };
 
   return (
@@ -64,7 +59,7 @@ function Article({ props }) {
             </span>
           ) : (
             <span
-              className="article-content-body-container-collapse"
+              className="article-content-body-container"
               onClick={handleArticleBodyExpand}
             >
               <p>{body.split(" ").slice(0, 10).join(" ")}...</p>
@@ -73,13 +68,12 @@ function Article({ props }) {
           )}
         </div>
         <span className="article-content-comment-container">
-          <button
-            className="article-content-comment-button"
-            onClick={handleNavigateToArticle}
-          >
-            <h5>{comment_count} comments</h5>
-            <AiOutlineComment size={32} />
-          </button>
+          <Link to={`/${topic}/articles/${article_id}`}>
+            <button className="article-content-comment-button">
+              <h5>{comment_count} comments</h5>
+              <AiOutlineComment size={32} />
+            </button>
+          </Link>
         </span>
       </div>
     </div>

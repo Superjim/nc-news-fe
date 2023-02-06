@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import api from "../utils/api";
 
 function NavBarTopic({ checkedTopics, setCheckedTopics }) {
@@ -16,19 +15,45 @@ function NavBarTopic({ checkedTopics, setCheckedTopics }) {
     }
   };
 
+  const topicLinkHandler = (topic) => {
+    setCheckedTopics([topic]);
+  };
+
   useEffect(() => {
     const fetchTopics = async () => {
-      const response = await api.get(`/topics`);
-      setTopics(response.data.topics);
+      try {
+        const response = await api.get(`/topics`);
+        setTopics(response.data.topics);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     fetchTopics();
   }, []);
 
   return (
-    <div>
+    <>
       <h2>Topic Sort</h2>
       <ul>
+        <li>
+          <input
+            type="checkbox"
+            id="All"
+            checked={checkedTopics.length === 0}
+            onChange={() => setCheckedTopics([])}
+          />
+          <label htmlFor="All">
+            <Link
+              onClick={() => {
+                setCheckedTopics([]);
+              }}
+              to="/"
+            >
+              All
+            </Link>
+          </label>
+        </li>
         {topics.map((topic, index) => (
           <li key={index}>
             <input
@@ -39,12 +64,17 @@ function NavBarTopic({ checkedTopics, setCheckedTopics }) {
               onChange={() => topicHandler(topic.slug)}
             />
             <label htmlFor={topic.slug}>
-              <Link to={topic.slug}>{topic.slug}</Link>
+              <Link
+                onClick={() => topicLinkHandler(topic.slug)}
+                to={topic.slug}
+              >
+                {topic.slug}
+              </Link>
             </label>
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
 

@@ -1,50 +1,87 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,
 } from "react-icons/bs";
+import { FcCollapse, FcExpand } from "react-icons/fc";
 import { AiOutlineComment } from "react-icons/ai";
 
 function Article({ props }) {
+  const {
+    article_id,
+    article_img_url,
+    author,
+    body,
+    comment_count,
+    created_at,
+    title,
+    topic,
+    votes,
+  } = props;
+
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
 
-  const handleArticleClick = () => {
+  const handleArticleBodyExpand = () => {
     setExpanded(!expanded);
   };
 
-  console.log(props);
+  const handleNavigateToArticle = () => {
+    navigate(`/${topic}/articles/${article_id}`);
+  };
 
   return (
-    <div className="article-container" onClick={handleArticleClick}>
-      <span className="article-votes-container">
+    <div className="article-container">
+      <span className="article-vote-container">
         <BsFillArrowUpCircleFill
           size={32}
           onClick={() => console.log("upvote")}
         />
-        <p>{props.votes}</p>
+        <p>{votes}</p>
         <BsFillArrowDownCircleFill
           size={32}
           onClick={() => console.log("downvote")}
         />
       </span>
-      <span className="article-content-container">
-        <span className="article-topic-title-created-container">
-          <h4>/{props.topic}</h4>
-          <p>Created at: {props.created_at}</p>
+      <div className="article-content-container">
+        <span className="article-content-title-container">
+          <h4>/{topic}</h4>
+          <h5>Author: {author}</h5>
+          <h5>Created at: {created_at}</h5>
+          <h5># {article_id}</h5>
         </span>
-        <h3>{props.title}</h3>
-        <img src={props.article_img_url} alt={props.title}></img>
-        <span className="article-author-comments-container">
-          <h5>Author: {props.author}</h5>
-          <h5>
-            {props.comment_count}
+        <h3>{title}</h3>
+        <img src={article_img_url} alt={title}></img>
+        <div className="article-content-body-container-collapse">
+          {expanded ? (
+            <span
+              className="article-content-body-container-collapse"
+              onClick={handleArticleBodyExpand}
+            >
+              <p>{body}</p>
+              <FcCollapse size={32} />
+            </span>
+          ) : (
+            <span
+              className="article-content-body-container-collapse"
+              onClick={handleArticleBodyExpand}
+            >
+              <p>{body.split(" ").slice(0, 10).join(" ")}...</p>
+              <FcExpand size={32} />
+            </span>
+          )}
+        </div>
+        <span className="article-content-comment-container">
+          <button
+            className="article-content-comment-button"
+            onClick={handleNavigateToArticle}
+          >
+            <h5>{comment_count} comments</h5>
             <AiOutlineComment size={32} />
-          </h5>
+          </button>
         </span>
-        <span className="article-body-container">
-          {expanded && <p>{props.body}</p>}
-        </span>
-      </span>
+      </div>
     </div>
   );
 }

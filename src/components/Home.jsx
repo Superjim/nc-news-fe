@@ -3,15 +3,7 @@ import NavBarTopic from "./NavBarTopic";
 import Topic from "./Topic";
 
 function Home({ checkedTopics, setCheckedTopics }) {
-  return (
-    <div>
-      <NavBarTopic
-        checkedTopics={checkedTopics}
-        setCheckedTopics={setCheckedTopics}
-      />
-      <Topic checkedTopics={checkedTopics} />
-    </div>
-  );
+  return <div></div>;
 }
 
 export default Home;

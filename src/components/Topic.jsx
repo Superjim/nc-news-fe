@@ -1,28 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../utils/api";
+import Article from "./Article";
 
-function Topic() {
+function Topic({ checkedTopics }) {
   let { topic_slug } = useParams();
-  if (topic_slug === undefined) topic_slug = "";
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const response = await axios.get(
-        `https://nc-news-6g30.onrender.com/api/articles?topic=${topic_slug}`
-      );
+      let topics;
+      if (topic_slug) {
+        topics = topic_slug;
+      } else {
+        topics = checkedTopics.join(",");
+      }
+
+      const response = await api.get(`/articles`, {
+        params: {
+          topic: topics,
+        },
+      });
       setArticles(response.data.articles);
     };
 
     fetchArticles();
-  }, [topic_slug]);
+  }, [checkedTopics, topic_slug]);
+
   return (
     <div>
-      {topic_slug ? <h2>Topic {topic_slug}</h2> : <h2>All Topics</h2>}
+      {topic_slug ? (
+        <h2>{topic_slug}</h2>
+      ) : (
+        <h2>{checkedTopics.join(" & ")}</h2>
+      )}
+
       <ul>
         {articles.map((article) => (
-          <li key={article.article_id}>{article.title}</li>
+          <Article key={article.article_id} props={article} />
         ))}
       </ul>
     </div>

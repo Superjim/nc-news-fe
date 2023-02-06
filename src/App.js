@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import NavBarTopic from "./components/NavBarTopic";
+import Home from "./components/Home";
 import Topic from "./components/Topic";
+import "./App.css";
 
 function App() {
+  const [checkedTopics, setCheckedTopics] = useState([]);
+
   return (
     <div>
       <Header />
-      <NavBarTopic />
       <Routes>
-        <Route path="/" element={<Topic />} />
-        <Route path="/:topic_slug" element={<Topic />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              checkedTopics={checkedTopics}
+              setCheckedTopics={setCheckedTopics}
+            />
+          }
+        />
+        <Route
+          path="/:topic_slug"
+          element={<Topic checkedTopics={checkedTopics} />}
+        />
       </Routes>
     </div>
   );

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { CheckboxContext } from "../contexts/CheckboxContext";
 import api from "../utils/api";
 import Article from "./Article";
-import NavBarTopic from "./NavBarTopic";
 
-function Topic({ checkedTopics }) {
+function Topic() {
   let { topic_slug } = useParams();
   const [articles, setArticles] = useState([]);
+  const { checkedTopics } = useContext(CheckboxContext);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -34,11 +35,6 @@ function Topic({ checkedTopics }) {
 
   return (
     <div className="content">
-      {topic_slug ? (
-        <h2>{topic_slug}</h2>
-      ) : (
-        <h2>{checkedTopics.join(" & ")}</h2>
-      )}
       {articles.map((article, index) => (
         <Article props={article} key={index} />
       ))}

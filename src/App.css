@@ -145,6 +145,11 @@ ul {
   gap: 1rem;
 }
 
+.article-vote-button:hover {
+  cursor: pointer;
+  color: orange;
+}
+
 /* COMMENT CONTAINER */
 
 .comment-container {

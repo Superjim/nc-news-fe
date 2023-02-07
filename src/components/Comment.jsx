@@ -17,7 +17,7 @@ function Comment({ props }) {
         <span className="comment-title-container">
           <h5>{author}</h5>
           <h5>{created_at}</h5>
-          <h5># {comment_id}</h5>
+          <h5>#{comment_id}</h5>
         </span>
         <p>{body}</p>
         <span className="comment-vote-container">

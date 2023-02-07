@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  BsFillArrowUpCircleFill,
-  BsFillArrowDownCircleFill,
-} from "react-icons/bs";
 import { FcCollapse, FcExpand } from "react-icons/fc";
 import { AiOutlineComment } from "react-icons/ai";
+import ArticleVotes from "./ArticleVotes";
 
-function Article({ props }) {
+function Article({ props, showAll = false }) {
   const {
     article_id,
     article_img_url,
@@ -28,17 +25,7 @@ function Article({ props }) {
 
   return (
     <div className="article-container">
-      <span className="article-vote-container">
-        <BsFillArrowUpCircleFill
-          size={32}
-          onClick={() => console.log("upvote")}
-        />
-        <p>{votes}</p>
-        <BsFillArrowDownCircleFill
-          size={32}
-          onClick={() => console.log("downvote")}
-        />
-      </span>
+      <ArticleVotes votes={votes} article_id={article_id} />
       <div className="article-content-container">
         <span className="article-content-title-container">
           <h4>/{topic}</h4>
@@ -48,33 +35,41 @@ function Article({ props }) {
         </span>
         <h3>{title}</h3>
         <img src={article_img_url} alt={title}></img>
-        <div className="article-content-body-container-collapse">
-          {expanded ? (
-            <span
-              className="article-content-body-container-collapse"
-              onClick={handleArticleBodyExpand}
-            >
-              <p>{body}</p>
-              <FcCollapse size={32} />
+        {!showAll ? (
+          <>
+            <div className="article-content-body-container-collapse">
+              {expanded ? (
+                <span
+                  className="article-content-body-container-collapse"
+                  onClick={handleArticleBodyExpand}
+                >
+                  <p>{body}</p>
+                  <FcCollapse size={32} />
+                </span>
+              ) : (
+                <span
+                  className="article-content-body-container"
+                  onClick={handleArticleBodyExpand}
+                >
+                  {body && <p>{body.split(" ").slice(0, 10).join(" ")}...</p>}
+                  <FcExpand size={32} />
+                </span>
+              )}
+            </div>
+            <span className="article-content-comment-container">
+              <Link to={`/${topic}/articles/${article_id}`}>
+                <button className="article-content-comment-button">
+                  <h5>{comment_count} comments</h5>
+                  <AiOutlineComment size={32} />
+                </button>
+              </Link>
             </span>
-          ) : (
-            <span
-              className="article-content-body-container"
-              onClick={handleArticleBodyExpand}
-            >
-              <p>{body.split(" ").slice(0, 10).join(" ")}...</p>
-              <FcExpand size={32} />
-            </span>
-          )}
-        </div>
-        <span className="article-content-comment-container">
-          <Link to={`/${topic}/articles/${article_id}`}>
-            <button className="article-content-comment-button">
-              <h5>{comment_count} comments</h5>
-              <AiOutlineComment size={32} />
-            </button>
-          </Link>
-        </span>
+          </>
+        ) : (
+          <span style={{ textAlign: "left" }}>
+            <p>{body}</p>
+          </span>
+        )}
       </div>
     </div>
   );

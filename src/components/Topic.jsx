@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CheckboxContext } from "../contexts/CheckboxContext";
-import api from "../utils/api";
+import { api } from "../utils/api";
 import Article from "./Article";
 
 function Topic() {

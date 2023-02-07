@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { CheckboxContext } from "../contexts/CheckboxContext";
+import { ArticleContext } from "../contexts/ArticleContext";
 
 function Header() {
-  const { checkedTopics } = useContext(CheckboxContext);
+  const { checkedTopics } = useContext(ArticleContext);
   let title = "";
   if (checkedTopics.length === 0) {
     title = `NC-News/`;

@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import { CheckboxProvider } from "./contexts/CheckboxContext";
+import { ArticleProvider } from "./contexts/ArticleContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <CheckboxProvider>
+  <ArticleProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </CheckboxProvider>
+  </ArticleProvider>
 );

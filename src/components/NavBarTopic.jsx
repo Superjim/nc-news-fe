@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckboxContext } from "../contexts/CheckboxContext";
+import { ArticleContext } from "../contexts/ArticleContext";
 import { api } from "../utils/api";
 
 function NavBarTopic() {
   const [topics, setTopics] = useState([]);
-  const { checkedTopics, setCheckedTopics } = useContext(CheckboxContext);
+  const { checkedTopics, setCheckedTopics } = useContext(ArticleContext);
 
   const topicHandler = (topic) => {
     if (checkedTopics.includes(topic)) {

@@ -36,6 +36,11 @@
   border-top-left-radius: 0.5rem;
   padding: 1rem;
   text-transform: capitalize;
+  /* position: fixed;
+  right: 0;
+  top: 7rem;
+  height: 100%;
+  min-width: 200px; */
 }
 
 [type="checkbox"] {

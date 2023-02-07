@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import api from "../utils/api";
 import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,
 } from "react-icons/bs";
+import Comment from "./Comment";
 
 function ArticlePage() {
+  const commentsRef = useRef();
+
   let { article_id } = useParams();
   const [article, setArticle] = useState({});
+  const [comments, setComments] = useState([]);
 
   const {
     article_img_url,
@@ -27,8 +31,23 @@ function ArticlePage() {
       setArticle(response.data.article);
     };
 
+    const fetchComments = async () => {
+      const response = await api.get(`/articles/${article_id}/comments`);
+      setComments(response.data.comments);
+    };
+
+    fetchComments();
     fetchArticle();
   }, [article_id]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      commentsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }, 500);
+  }, [comments]);
 
   return (
     <div className="content">
@@ -59,7 +78,11 @@ function ArticlePage() {
           <span className="article-page-comment-container"></span>
         </div>
       </div>
-      <h1>This is where my comments go</h1>
+      <div ref={commentsRef} className="comments-container">
+        {comments.map((article, index) => (
+          <Comment props={article} key={index} />
+        ))}
+      </div>
     </div>
   );
 }

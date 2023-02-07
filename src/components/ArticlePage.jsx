@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../utils/api";
+import AddComment from "./AddComment";
 import Article from "./Article";
 import Comment from "./Comment";
 
@@ -40,6 +41,11 @@ function ArticlePage() {
     <div className="content">
       <Article props={article} showAll={true} />
       <div ref={commentsRef} className="comments-container">
+        <AddComment
+          article_id={article.article_id}
+          comments={comments}
+          setComments={setComments}
+        />
         {comments.map((article, index) => (
           <Comment props={article} key={index} />
         ))}

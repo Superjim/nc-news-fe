@@ -27,6 +27,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .sidebar {
@@ -36,6 +37,7 @@
   border-top-left-radius: 0.5rem;
   padding: 1rem;
   text-transform: capitalize;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   /* position: fixed;
   right: 0;
   top: 7rem;
@@ -53,7 +55,7 @@
 .content {
   grid-area: content;
   text-align: center;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 .content > * {
@@ -71,7 +73,7 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-bottom: 3rem;
+  padding-bottom: 1rem;
 }
 
 .article-vote-container {
@@ -84,6 +86,7 @@ ul {
   align-items: center;
   justify-content: flex-start;
   padding: 0.2rem 0.2rem 0 0.2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .article-content-container {
@@ -95,6 +98,7 @@ ul {
   border-bottom-right-radius: 0.5rem;
   padding: 1rem;
   width: 800px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .article-content-title-container {
@@ -164,6 +168,7 @@ ul {
   color: white;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .comment-body-container {
@@ -174,22 +179,55 @@ ul {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   text-align: left;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.comment-body-container > P {
+  padding: 0 1rem 0 1rem;
+}
+
 .comment-title-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
 }
 .comment-title-container > * {
   margin: 0;
 }
 .comment-vote-container {
   display: flex;
+  height: 32px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;
+  padding: 0.25rem;
+}
+
+/* POST COMMENT */
+.add-comment-text {
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  resize: vertical;
+  margin: 1rem;
+  height: 6rem;
+}
+
+.add-comment-button {
+  height: 2rem;
+  border-bottom-right-radius: 0.5rem;
+  background-color: var(--primary);
+  color: white;
+  font-size: 1rem;
+  border: 0;
+}
+
+.add-comment-button:hover {
+  cursor: pointer;
+  background-color: orange;
+  color: black;
 }
 
 /* TOPICS - ARTICLES */

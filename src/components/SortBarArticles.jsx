@@ -25,6 +25,7 @@ function SortBarArticles() {
           <option value="author">Author</option>
           <option value="body">Body</option>
           <option value="created_at">Created At</option>
+          <option value="comment_count">Comment Count</option>
           <option value="votes">Votes</option>
         </select>
       </div>
@@ -47,7 +48,6 @@ function SortBarArticles() {
       </div>
       <div className="sortbar-page-container">
         <h3>Page</h3>
-        {/* calculate page amount with limit and total_count */}
         {[...Array(pageAmount).keys()].map((p) => (
           <button
             key={p + 1}

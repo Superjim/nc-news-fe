@@ -47,6 +47,10 @@
   min-width: 200px; */
 }
 
+.sidebar-container {
+  position: fixed;
+}
+
 [type="checkbox"] {
   width: 2rem;
   height: 2rem;

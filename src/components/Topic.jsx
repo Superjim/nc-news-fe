@@ -7,16 +7,8 @@ import Article from "./Article";
 function Topic() {
   let { topic_slug } = useParams();
   const [articles, setArticles] = useState([]);
-  const {
-    checkedTopics,
-    sortBy,
-    order,
-    limit,
-    page,
-    setPage,
-    pageAmount,
-    setPageAmount,
-  } = useContext(ArticleContext);
+  const { checkedTopics, sortBy, order, limit, page, setPage, setPageAmount } =
+    useContext(ArticleContext);
 
   useEffect(() => {
     const fetchArticles = async () => {

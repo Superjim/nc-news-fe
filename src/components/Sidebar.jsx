@@ -5,8 +5,10 @@ import SortBarArticles from "./SortBarArticles";
 function Sidebar() {
   return (
     <div className="sidebar">
-      <NavBarTopic />
-      <SortBarArticles />
+      <div className="sidebar-container">
+        <NavBarTopic />
+        <SortBarArticles />
+      </div>
     </div>
   );
 }

@@ -145,6 +145,48 @@ ul {
   gap: 1rem;
 }
 
+/* COMMENT CONTAINER */
+
+.comment-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 3rem;
+}
+
+.comment-user-container {
+  background-color: var(--other);
+  color: white;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.comment-body-container {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  background-color: var(--secondary);
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  text-align: left;
+}
+.comment-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.comment-title-container > * {
+  margin: 0;
+}
+.comment-vote-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
 /* TOPICS - ARTICLES */
 
 .articles-container {

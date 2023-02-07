@@ -1,30 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { CheckboxContext } from "../contexts/CheckboxContext";
+import api from "../utils/api";
+import Article from "./Article";
 
 function Topic() {
   let { topic_slug } = useParams();
-  if (topic_slug === undefined) topic_slug = "";
   const [articles, setArticles] = useState([]);
+  const { checkedTopics } = useContext(CheckboxContext);
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const response = await axios.get(
-        `https://nc-news-6g30.onrender.com/api/articles?topic=${topic_slug}`
-      );
-      setArticles(response.data.articles);
+      try {
+        let topics;
+        if (topic_slug) {
+          topics = topic_slug;
+        } else {
+          topics = checkedTopics.join(",");
+        }
+
+        const response = await api.get(`/articles`, {
+          params: {
+            topic: topics,
+          },
+        });
+        setArticles(response.data.articles);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     fetchArticles();
-  }, [topic_slug]);
+  }, [checkedTopics, topic_slug]);
+
   return (
-    <div>
-      {topic_slug ? <h2>Topic {topic_slug}</h2> : <h2>All Topics</h2>}
-      <ul>
-        {articles.map((article) => (
-          <li key={article.article_id}>{article.title}</li>
-        ))}
-      </ul>
+    <div className="content">
+      {articles.map((article, index) => (
+        <Article props={article} key={index} />
+      ))}
     </div>
   );
 }

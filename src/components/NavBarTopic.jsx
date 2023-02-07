@@ -1,34 +1,82 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { CheckboxContext } from "../contexts/CheckboxContext";
+import api from "../utils/api";
 
 function NavBarTopic() {
   const [topics, setTopics] = useState([]);
+  const { checkedTopics, setCheckedTopics } = useContext(CheckboxContext);
+
+  const topicHandler = (topic) => {
+    if (checkedTopics.includes(topic)) {
+      setCheckedTopics(
+        checkedTopics.filter((checkedTopic) => checkedTopic !== topic)
+      );
+    } else {
+      setCheckedTopics([...checkedTopics, topic]);
+    }
+  };
+
+  const topicLinkHandler = (topic) => {
+    setCheckedTopics([topic]);
+  };
 
   useEffect(() => {
     const fetchTopics = async () => {
-      const response = await axios.get(
-        "https://nc-news-6g30.onrender.com/api/topics"
-      );
-      setTopics(response.data.topics);
+      try {
+        const response = await api.get(`/topics`);
+        setTopics(response.data.topics);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     fetchTopics();
   }, []);
+
   return (
-    <div>
-      <h2>Topics</h2>
+    <>
+      <h2>Topic Sort</h2>
       <ul>
         <li>
-          <Link to={`/`}>All</Link>
+          <input
+            type="checkbox"
+            id="All"
+            checked={checkedTopics.length === 0}
+            onChange={() => setCheckedTopics([])}
+          />
+          <label htmlFor="All">
+            <Link
+              onClick={() => {
+                setCheckedTopics([]);
+              }}
+              to="/"
+            >
+              All
+            </Link>
+          </label>
         </li>
         {topics.map((topic, index) => (
           <li key={index}>
-            <Link to={`/${topic.slug}`}>{topic.slug}</Link>
+            <input
+              type="checkbox"
+              id={topic.slug}
+              value={topic.slug}
+              checked={checkedTopics.includes(topic.slug)}
+              onChange={() => topicHandler(topic.slug)}
+            />
+            <label htmlFor={topic.slug}>
+              <Link
+                onClick={() => topicLinkHandler(topic.slug)}
+                to={topic.slug}
+              >
+                {topic.slug}
+              </Link>
+            </label>
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
 

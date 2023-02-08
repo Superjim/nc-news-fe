@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { api } from "../utils/api";
-import { AiOutlineUser } from "react-icons/ai";
+import { UserContext } from "../contexts/UserContext";
 
 function AddComment({ article_id, comments, setComments }) {
   const [comment, setComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const { user } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,7 +14,7 @@ function AddComment({ article_id, comments, setComments }) {
 
     try {
       const response = await api.post(`/articles/${article_id}/comments`, {
-        username: "grumpy19",
+        username: user.username,
         body: comment,
       });
       setSubmitSuccess(true);
@@ -29,7 +30,11 @@ function AddComment({ article_id, comments, setComments }) {
   return (
     <div className="comment-container">
       <span className="comment-user-container">
-        <AiOutlineUser size={32} />
+        <img
+          className="avatar-url"
+          src={user.avatar_url}
+          alt={user.username}
+        ></img>
       </span>
       <form className="comment-body-container" onSubmit={handleSubmit}>
         <textarea

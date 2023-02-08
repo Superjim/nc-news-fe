@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { ArticleContext } from "../contexts/ArticleContext";
+import Profile from "./Profile";
 
 function Header() {
   const { checkedTopics } = useContext(ArticleContext);
@@ -19,7 +20,8 @@ function Header() {
   return (
     <div className="header">
       <h1>{title}</h1>
-      <h1>login</h1>
+      <h1>search</h1>
+      <Profile />
     </div>
   );
 }

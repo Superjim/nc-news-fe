@@ -13,7 +13,13 @@ function ArticleVotes({ votes, article_id }) {
 
   //idk why but its setting useState(votes) when passing from articlepage > article > articlevotes
   //so ive set it to update it when it renders
+
+  //useEffect resets the vote colour state leftover from previous component render
+  //gonna have to store this upvote / downvote data somewhere properly because its just causing problems
+  //it needs to be loaded in as a prop unique to each user
   useEffect(() => {
+    setUpVoteColor("");
+    setDownVoteColor("");
     setLocalVotes(votes);
   }, [votes]);
 

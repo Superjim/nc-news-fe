@@ -30,6 +30,8 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* SIDEBAR */
+
 .sidebar {
   grid-area: sidebar;
   background-color: var(--secondary);
@@ -45,12 +47,22 @@
   min-width: 200px; */
 }
 
+.sidebar-container {
+  position: fixed;
+}
+
 [type="checkbox"] {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
   vertical-align: middle;
   cursor: pointer;
 }
+
+.sortbar-page-active {
+  border: 3px solid green;
+}
+
+/* GENERIC CONTENT CONTAINER */
 
 .content {
   grid-area: content;
@@ -207,6 +219,7 @@ ul {
 }
 
 /* POST COMMENT */
+
 .add-comment-text {
   border-radius: 0.5rem;
   font-size: 1rem;

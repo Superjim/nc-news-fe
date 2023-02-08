@@ -1,10 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  BsFillArrowUpCircleFill,
-  BsFillArrowDownCircleFill,
-} from "react-icons/bs";
 import { UserContext } from "../contexts/UserContext";
 import { api } from "../utils/api";
+import TimeSince from "../utils/TimeSince";
 import Votes from "./Votes";
 
 function Comment({ props, comments, setComments }) {
@@ -48,7 +45,7 @@ function Comment({ props, comments, setComments }) {
       <div className="comment-body-container">
         <span className="comment-title-container">
           <h5>{author}</h5>
-          <h5>{created_at}</h5>
+          <TimeSince date={created_at} />
           <h5>#{comment_id}</h5>
         </span>
         <p>{body}</p>

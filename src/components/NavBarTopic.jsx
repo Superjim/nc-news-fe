@@ -1,11 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArticleContext } from "../contexts/ArticleContext";
-import { api } from "../utils/api";
 
 function NavBarTopic() {
-  const [topics, setTopics] = useState([]);
-  const { checkedTopics, setCheckedTopics } = useContext(ArticleContext);
+  const { checkedTopics, setCheckedTopics, topics, fetchTopics } =
+    useContext(ArticleContext);
+
+  useEffect(() => {
+    fetchTopics();
+  }, [fetchTopics]);
 
   const topicHandler = (topic) => {
     if (checkedTopics.includes(topic)) {
@@ -20,19 +23,6 @@ function NavBarTopic() {
   const topicLinkHandler = (topic) => {
     setCheckedTopics([topic]);
   };
-
-  useEffect(() => {
-    const fetchTopics = async () => {
-      try {
-        const response = await api.get(`/topics`);
-        setTopics(response.data.topics);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchTopics();
-  }, []);
 
   return (
     <>

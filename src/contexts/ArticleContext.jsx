@@ -19,6 +19,9 @@ const ArticleProvider = (props) => {
   //array of topics
   const [topics, setTopics] = useState([]);
 
+  //sidebar states
+  const [navbarAll, setNavbarAll] = useState(true);
+
   const navigate = useNavigate();
 
   const fetchTopics = async () => {
@@ -81,6 +84,8 @@ const ArticleProvider = (props) => {
         fetchArticles,
         topics,
         fetchTopics,
+        navbarAll,
+        setNavbarAll,
       }}
     >
       {props.children}

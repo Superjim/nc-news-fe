@@ -5,6 +5,7 @@ import {
 } from "react-icons/bs";
 import { UserContext } from "../contexts/UserContext";
 import { api } from "../utils/api";
+import Votes from "./Votes";
 
 function Comment({ props, comments, setComments }) {
   const { comment_id, votes, created_at, author, body, article_id } = props;
@@ -52,25 +53,11 @@ function Comment({ props, comments, setComments }) {
         </span>
         <p>{body}</p>
         {user.username === author ? (
-          <button
-            className="add-comment-button"
-            // disabled={deleting}
-            onClick={handleDelete}
-          >
+          <button className="add-comment-button" onClick={handleDelete}>
             Delete Comment
           </button>
         ) : (
-          <span className="comment-vote-container">
-            <BsFillArrowUpCircleFill
-              size={32}
-              onClick={() => console.log("upvote")}
-            />
-            <p>{votes}</p>
-            <BsFillArrowDownCircleFill
-              size={32}
-              onClick={() => console.log("downvote")}
-            />
-          </span>
+          <Votes votes={votes} id={comment_id} type="comment" />
         )}
       </div>
     </div>

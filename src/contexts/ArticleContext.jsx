@@ -60,7 +60,7 @@ const ArticleProvider = (props) => {
       setPageAmount(pageCalc);
     } catch (err) {
       console.log(err);
-      navigate("/404");
+      // navigate("/page-not-found");
     }
   };
 

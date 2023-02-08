@@ -6,7 +6,10 @@ import Article from "./Article";
 
 function Topic() {
   let { topic_slug } = useParams();
+
+  //this is where i store my array of articles, in the topic component, not the article context
   const [articles, setArticles] = useState([]);
+
   const { checkedTopics, sortBy, order, limit, page, setPage, setPageAmount } =
     useContext(ArticleContext);
 
@@ -40,7 +43,7 @@ function Topic() {
         setPageAmount(pageCalc);
       } catch (error) {
         console.log(error);
-        navigate("/page-not-found");
+        // navigate("/page-not-found");
       }
     };
 

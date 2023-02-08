@@ -1,29 +1,53 @@
 import React, { useContext, useState } from "react";
-import { api } from "../utils/api";
 import { UserContext } from "../contexts/UserContext";
+import { api } from "../utils/api";
 
-function AddComment({ article_id, comments, setComments }) {
+function AddComment({ comments, setComments, article_id }) {
   const [comment, setComment] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
   const { user } = useContext(UserContext);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setSubmitting(true);
+  //add comment
+  const handleAddComment = async (commentBody) => {
+    // create new comment with temp values
+    const newComment = {
+      comment_id: -202,
+      votes: 0,
+      created_at: new Date().toISOString(),
+      author: user.username,
+      body: commentBody,
+      article_id: article_id,
+    };
+    //optimistically add new comment to state immediately
+    setComments([newComment, ...comments]);
 
+    //post the comment to the backend
     try {
       const response = await api.post(`/articles/${article_id}/comments`, {
         username: user.username,
-        body: comment,
+        body: commentBody,
       });
-      setSubmitSuccess(true);
-      setComments([response.data.comment, ...comments]);
+      // update the temp values of comment if response recieved
+      const updatedComment = {
+        ...newComment,
+        comment_id: response.data.comment.comment_id,
+        created_at: response.data.comment.created_at,
+      };
+      setComments((previousComments) => [
+        updatedComment,
+        ...previousComments.filter((comment) => comment.comment_id !== -202),
+      ]);
     } catch (error) {
+      // if it fails to add, change body of comment to notify user
       console.log(error);
-    } finally {
-      setSubmitting(false);
-      setComment("");
+      const updatedComment = {
+        ...newComment,
+        comment_id: -503,
+        body: "Network Error sending message to the database",
+      };
+      setComments((previousComments) => [
+        updatedComment,
+        ...previousComments.filter((comment) => comment.comment_id !== -202),
+      ]);
     }
   };
 
@@ -36,7 +60,14 @@ function AddComment({ article_id, comments, setComments }) {
           alt={user.username}
         ></img>
       </span>
-      <form className="comment-body-container" onSubmit={handleSubmit}>
+      <form
+        className="comment-body-container"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleAddComment(comment);
+          setComment("");
+        }}
+      >
         <textarea
           className="add-comment-text"
           id="comment"
@@ -45,14 +76,9 @@ function AddComment({ article_id, comments, setComments }) {
           onChange={(event) => setComment(event.target.value)}
           required
         />
-        <button
-          className="add-comment-button"
-          type="submit"
-          disabled={submitting}
-        >
+        <button className="add-comment-button" type="submit">
           Add Comment
         </button>
-        {submitSuccess && <p>Comment posted!</p>}
       </form>
     </div>
   );

@@ -12,8 +12,8 @@ import AddArticle from "./components/AddArticle";
 function App() {
   return (
     <div className="App">
-      <UserProvider>
-        <ArticleProvider>
+      <ArticleProvider>
+        <UserProvider>
           <Header />
           <Sidebar />
           <Routes>
@@ -26,8 +26,8 @@ function App() {
             <Route path="/add-article" element={<AddArticle />} />
             <Route path="/page-not-found" element={<NotFound />} />
           </Routes>
-        </ArticleProvider>
-      </UserProvider>
+        </UserProvider>
+      </ArticleProvider>
     </div>
   );
 }

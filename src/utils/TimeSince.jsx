@@ -9,6 +9,9 @@ const calculateTimeDifference = (date) => {
 
 //thx be-katas
 const formatTimeDifference = (timeDifference) => {
+  if (timeDifference < 60) {
+    return "just now";
+  }
   const units = [
     { name: "year", value: 31536000 },
     { name: "month", value: 2592000 },
@@ -40,7 +43,7 @@ const formatTimeDifference = (timeDifference) => {
   result = result.slice(0, -2);
   result = result.replace(/,(?=[^,]+$)/, " and");
 
-  return result;
+  return result + " ago";
 };
 
 const TimeSince = ({ date }) => {
@@ -48,7 +51,7 @@ const TimeSince = ({ date }) => {
   const timeDifference = calculateTimeDifference(parsedTime);
   const formattedTimeDifference = formatTimeDifference(timeDifference);
 
-  return <h5>Posted {formattedTimeDifference} ago</h5>;
+  return <h5>Posted {formattedTimeDifference}</h5>;
 };
 
 export default TimeSince;

@@ -43,7 +43,7 @@ function Topic() {
         setPageAmount(pageCalc);
       } catch (error) {
         console.log(error);
-        // navigate("/page-not-found");
+        navigate("/page-not-found");
       }
     };
 

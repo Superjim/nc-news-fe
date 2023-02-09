@@ -5,30 +5,26 @@ import {
   BsFillArrowDownCircleFill,
 } from "react-icons/bs";
 
-function ArticleVotes({ votes, article_id }) {
+function Votes({ votes, id, type }) {
   const [upVoteColor, setUpVoteColor] = useState("");
   const [downVoteColor, setDownVoteColor] = useState("");
   const [localVotes, setLocalVotes] = useState(votes);
   const [currentVote, setCurrentVote] = useState(0);
 
-  //idk why but its setting useState(votes) when passing from articlepage > article > articlevotes
-  //so ive set it to update it when it renders
-
-  //useEffect resets the vote colour state leftover from previous component render
-  //gonna have to store this upvote / downvote data somewhere properly because its just causing problems
-  //it needs to be loaded in as a prop unique to each user
+  //reset upvote and downvote elements to prevent styles passing onto newly rendered components
   useEffect(() => {
     setUpVoteColor("");
     setDownVoteColor("");
     setLocalVotes(votes);
   }, [votes]);
 
-  const patchArticleVote = async (amount, article_id) => {
+  //type can be article or comment
+  const patchVote = async (amount, id, type) => {
     try {
-      const response = await api.patch(`/articles/${article_id}`, {
+      const response = await api.patch(`/${type}s/${id}`, {
         inc_votes: amount,
       });
-      return response.data.article.votes;
+      return response.data.votes;
     } catch (error) {
       alert("Connection error");
       console.log(error);
@@ -37,16 +33,14 @@ function ArticleVotes({ votes, article_id }) {
   };
 
   const upVote = () => {
-    //if user hasnt voted
     if (currentVote === 0) {
-      patchArticleVote(1, article_id);
+      patchVote(1, id, type);
       setLocalVotes(localVotes + 1);
       setDownVoteColor("");
       setUpVoteColor("green");
       setCurrentVote(1);
-      //if user has previously downvoted
     } else if (currentVote === -1) {
-      patchArticleVote(2, article_id);
+      patchVote(2, id, type);
       setLocalVotes(localVotes + 2);
       setDownVoteColor("");
       setUpVoteColor("green");
@@ -56,13 +50,13 @@ function ArticleVotes({ votes, article_id }) {
 
   const downVote = () => {
     if (currentVote === 0) {
-      patchArticleVote(-1, article_id);
+      patchVote(-1, id, type);
       setLocalVotes(localVotes - 1);
       setDownVoteColor("red");
       setUpVoteColor("");
       setCurrentVote(-1);
     } else if (currentVote === 1) {
-      patchArticleVote(-2, article_id);
+      patchVote(-2, id, type);
       setLocalVotes(localVotes - 2);
       setDownVoteColor("red");
       setUpVoteColor("");
@@ -71,16 +65,16 @@ function ArticleVotes({ votes, article_id }) {
   };
 
   return (
-    <span className="article-vote-container">
+    <span className={`${type}-vote-container`}>
       <BsFillArrowUpCircleFill
-        className="article-vote-button"
+        className="vote-button"
         style={{ color: upVoteColor }}
         size={32}
         onClick={upVote}
       />
       <p>{localVotes}</p>
       <BsFillArrowDownCircleFill
-        className="article-vote-button"
+        className="vote-button"
         style={{ color: downVoteColor }}
         size={32}
         onClick={downVote}
@@ -89,4 +83,4 @@ function ArticleVotes({ votes, article_id }) {
   );
 }
 
-export default ArticleVotes;
+export default Votes;

@@ -187,11 +187,6 @@ ul {
   gap: 1rem;
 }
 
-.article-vote-button:hover {
-  cursor: pointer;
-  color: orange;
-}
-
 /* COMMENT CONTAINER */
 
 .comment-container {
@@ -242,6 +237,12 @@ ul {
   align-items: center;
   gap: 1rem;
   padding: 0.25rem;
+  color: var(--primary);
+}
+
+.vote-button:hover {
+  cursor: pointer;
+  color: orange;
 }
 
 /* POST COMMENT */

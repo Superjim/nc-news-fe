@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FcCollapse, FcExpand } from "react-icons/fc";
 import { AiOutlineComment } from "react-icons/ai";
-import ArticleVotes from "./ArticleVotes";
+import Votes from "./Votes";
+import TimeSince from "../utils/TimeSince";
 
 function Article({ props, showAll = false }) {
   const {
@@ -25,12 +26,12 @@ function Article({ props, showAll = false }) {
 
   return (
     <div className="article-container">
-      <ArticleVotes votes={votes} article_id={article_id} />
+      <Votes votes={votes} id={article_id} type="article" />
       <div className="article-content-container">
         <span className="article-content-title-container">
           <h4>/{topic}</h4>
           <h5>Author: {author}</h5>
-          <h5>Created at: {created_at}</h5>
+          <TimeSince date={created_at} />
           <h5># {article_id}</h5>
         </span>
         <h3>{title}</h3>

@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  BsFillArrowUpCircleFill,
-  BsFillArrowDownCircleFill,
-} from "react-icons/bs";
 import { UserContext } from "../contexts/UserContext";
 import { api } from "../utils/api";
+import TimeSince from "../utils/TimeSince";
+import Votes from "./Votes";
 
 function Comment({ props, comments, setComments }) {
   const { comment_id, votes, created_at, author, body, article_id } = props;
@@ -47,30 +45,16 @@ function Comment({ props, comments, setComments }) {
       <div className="comment-body-container">
         <span className="comment-title-container">
           <h5>{author}</h5>
-          <h5>{created_at}</h5>
+          <TimeSince date={created_at} />
           <h5>#{comment_id}</h5>
         </span>
         <p>{body}</p>
         {user.username === author ? (
-          <button
-            className="add-comment-button"
-            // disabled={deleting}
-            onClick={handleDelete}
-          >
+          <button className="add-comment-button" onClick={handleDelete}>
             Delete Comment
           </button>
         ) : (
-          <span className="comment-vote-container">
-            <BsFillArrowUpCircleFill
-              size={32}
-              onClick={() => console.log("upvote")}
-            />
-            <p>{votes}</p>
-            <BsFillArrowDownCircleFill
-              size={32}
-              onClick={() => console.log("downvote")}
-            />
-          </span>
+          <Votes votes={votes} id={comment_id} type="comment" />
         )}
       </div>
     </div>

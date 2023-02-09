@@ -11,6 +11,7 @@ function Topic() {
 
   //this useEffect gets the articles, so only values that change the api query should be in here
   //if you add the recommended stuff it'll get itself stuck in a topic_slug loop or 10 and isnt very performant
+  //basically DONT ADD TOPIC_SLUG BECAUSE IT WILL RUN EVERY RENDER
   useEffect(() => {
     fetchArticles(topic_slug);
   }, [checkedTopics, sortBy, order, limit, page, articles]);

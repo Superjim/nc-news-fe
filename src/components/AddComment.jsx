@@ -32,9 +32,9 @@ function AddComment({ comments, setComments, article_id }) {
         comment_id: response.data.comment.comment_id,
         created_at: response.data.comment.created_at,
       };
-      setComments((previousComments) => [
+      setComments([
         updatedComment,
-        ...previousComments.filter((comment) => comment.comment_id !== -202),
+        ...comments.filter((comment) => comment.comment_id !== -202),
       ]);
     } catch (error) {
       // if it fails to add, change body of comment to notify user
@@ -44,10 +44,9 @@ function AddComment({ comments, setComments, article_id }) {
         comment_id: -503,
         body: "Network Error sending message to the database",
       };
-
-      setComments((previousComments) => [
+      setComments([
         updatedComment,
-        ...previousComments.filter((comment) => comment.comment_id !== -202),
+        ...comments.filter((comment) => comment.comment_id !== -202),
       ]);
     }
   };

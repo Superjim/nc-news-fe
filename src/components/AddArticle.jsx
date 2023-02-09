@@ -57,9 +57,9 @@ function AddArticle() {
         created_at: response.data.article.created_at,
         article_img_url: response.data.article.article_img_url,
       };
-      setArticles((previousArticles) => [
+      setArticles([
         updatedArticle,
-        ...previousArticles.filter((article) => article.article_id !== -202),
+        ...articles.filter((article) => article.article_id !== -202),
       ]);
 
       //if article fails to add, change body to reflect this
@@ -72,9 +72,9 @@ function AddArticle() {
         article_img_url:
           "https://learn.microsoft.com/en-us/windows/win32/uxguide/images/mess-error-image15.png",
       };
-      setArticles((previousArticles) => [
+      setArticles([
         updatedArticle,
-        ...previousArticles.filter((article) => article.article_id !== -202),
+        ...articles.filter((article) => article.article_id !== -202),
       ]);
 
       //redirect user to topic page

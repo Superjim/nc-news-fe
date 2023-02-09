@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArticleContext } from "../contexts/ArticleContext";
 import { api } from "../utils/api";
@@ -66,6 +66,8 @@ function Topic() {
     setPageAmount,
     sortBy,
     topic_slug,
+    articles,
+    setArticles,
   ]);
 
   return (

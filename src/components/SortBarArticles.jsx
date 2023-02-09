@@ -14,6 +14,14 @@ function SortBarArticles() {
     pageAmount,
   } = useContext(ArticleContext);
 
+  //scroll to top of page
+  const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <div className="sortbar-sort-container">
@@ -52,7 +60,10 @@ function SortBarArticles() {
           <button
             key={p + 1}
             className={p + 1 === page ? "sortbar-page-active" : ""}
-            onClick={() => setPage(p + 1)}
+            onClick={() => {
+              handleClick();
+              setPage(p + 1);
+            }}
           >
             {p + 1}
           </button>

@@ -86,6 +86,7 @@ function NavBarTopic() {
         </div>
       ) : (
         <div className="navbar-topic-sort">
+          <h2>Quick Links</h2>
           <Link
             onClick={() => {
               setCheckedTopics([]);
@@ -95,6 +96,21 @@ function NavBarTopic() {
           >
             <h2>Back to All</h2>
           </Link>
+          <ul>
+            {topics.map((topic, index) => (
+              <li key={index}>
+                <Link
+                  onClick={() => {
+                    topicLinkHandler(topic.slug);
+                    setNavbarAll(false);
+                  }}
+                  to={topic.slug}
+                >
+                  {topic.slug}
+                </Link>
+              </li>
+            ))}
+          </ul>
           <h2>{checkedTopics}</h2>
           <h4>{getDescription(checkedTopics[0])}</h4>
         </div>

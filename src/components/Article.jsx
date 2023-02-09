@@ -39,7 +39,7 @@ function Article({ props, showAll = false }) {
       // delete article from backend
       await api.delete(`/articles/${article_id}`);
     } catch (error) {
-      // if error, add article back to local array??
+      // if error, add article back to local array
       console.error(error);
       setArticles([props, ...articles]);
     }

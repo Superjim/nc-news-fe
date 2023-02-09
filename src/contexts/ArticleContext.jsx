@@ -33,6 +33,8 @@ const ArticleProvider = (props) => {
     }
   };
 
+  //if the user is linked to a specific topic page, eg .xyz/socks, it will search articles of topic socks (whatevers in the params)
+  //if params undefined, then it looks at the topic checkbox state and fetch all topics in the array
   const fetchArticles = async (topic_slug) => {
     try {
       let topics;

@@ -14,7 +14,7 @@ function SortBarArticles() {
     pageAmount,
   } = useContext(ArticleContext);
 
-  //scroll to top of page
+  //scroll to top of page on page button click
   const handleClick = () => {
     window.scrollTo({
       top: 0,

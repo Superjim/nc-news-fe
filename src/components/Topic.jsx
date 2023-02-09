@@ -7,8 +7,6 @@ import Article from "./Article";
 function Topic() {
   let { topic_slug } = useParams();
 
-  //this is where i store my array of articles, in the topic component, not the article context
-
   const {
     checkedTopics,
     sortBy,

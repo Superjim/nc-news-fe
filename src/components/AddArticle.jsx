@@ -8,7 +8,7 @@ import Article from "./Article";
 import { useNavigate } from "react-router-dom";
 
 function AddArticle() {
-  const { topics } = useContext(ArticleContext);
+  const { topics, articles, setArticles } = useContext(ArticleContext);
   const { user } = useContext(UserContext);
   const [form, setForm] = useState({
     author: user.username,
@@ -18,9 +18,11 @@ function AddArticle() {
     article_img_url: "",
   });
   const [page, setPage] = useState(1);
-  const { articles, setArticles } = useContext(ArticleContext);
+  const [error, setError] = useState(null);
+
   const navigate = useNavigate();
 
+  //handles change of form
   const handleChange = (event) => {
     setForm({
       ...form,
@@ -50,7 +52,7 @@ function AddArticle() {
     try {
       const response = await api.post("/articles", form);
 
-      //update the temp values of article if response recieved
+      //update the temp values of optimistically added article if response recieved
       const updatedArticle = {
         ...newArticle,
         article_id: response.data.article.article_id,
@@ -62,7 +64,7 @@ function AddArticle() {
         ...articles.filter((article) => article.article_id !== -202),
       ]);
 
-      //if article fails to add, change body to reflect this
+      //if article fails to add, change optimistically added object body to reflect this
     } catch (error) {
       console.error(error);
       const updatedArticle = {
@@ -79,19 +81,27 @@ function AddArticle() {
 
       //redirect user to topic page
     } finally {
+      setForm({
+        author: user.username,
+        title: "",
+        body: "",
+        topic: "",
+        article_img_url: "",
+      });
       navigate(`/${form.topic}`);
     }
   };
 
   //file upload
   const uploader = Uploader({
-    apiKey: "free", // Get production API keys from Upload.io
+    apiKey: "free",
   });
 
   const options = { multi: false };
 
   return (
     <div className="content">
+      {/* if page 2, show user article preview */}
       {page === 2 && (
         <Article
           props={{

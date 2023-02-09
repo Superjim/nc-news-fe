@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ArticleContext } from "../contexts/ArticleContext";
 
+//this gets re-used for topics and articles, so you can change the title via prop
 function NotFound({ title = "Page" }) {
   const { setCheckedTopics, setNavbarAll } = useContext(ArticleContext);
 

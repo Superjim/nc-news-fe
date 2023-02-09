@@ -44,6 +44,7 @@ function AddComment({ comments, setComments, article_id }) {
         comment_id: -503,
         body: "Network Error sending message to the database",
       };
+
       setComments((previousComments) => [
         updatedComment,
         ...previousComments.filter((comment) => comment.comment_id !== -202),

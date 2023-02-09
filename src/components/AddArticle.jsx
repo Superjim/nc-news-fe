@@ -5,9 +5,10 @@ import { api } from "../utils/api";
 import { Uploader } from "uploader"; // Installed by "react-uploader".
 import { UploadButton } from "react-uploader";
 import Article from "./Article";
+import { useNavigate } from "react-router-dom";
 
 function AddArticle() {
-  const { topics, checkedTopics } = useContext(ArticleContext);
+  const { topics } = useContext(ArticleContext);
   const { user } = useContext(UserContext);
   const [form, setForm] = useState({
     author: user.username,
@@ -17,7 +18,8 @@ function AddArticle() {
     article_img_url: "",
   });
   const [page, setPage] = useState(1);
-  const [postSuccess, setPostSuccess] = useState(false);
+  const { articles, setArticles } = useContext(ArticleContext);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setForm({
@@ -42,13 +44,42 @@ function AddArticle() {
     };
 
     //optimistically add it to the array
+    setArticles([newArticle, ...articles]);
 
+    //post article to the backend
     try {
       const response = await api.post("/articles", form);
-      console.log(response.data);
-      //reflect this in the component
+
+      //update the temp values of article if response recieved
+      const updatedArticle = {
+        ...newArticle,
+        article_id: response.data.article.article_id,
+        created_at: response.data.article.created_at,
+        article_img_url: response.data.article.article_img_url,
+      };
+      setArticles((previousArticles) => [
+        updatedArticle,
+        ...previousArticles.filter((article) => article.article_id !== -202),
+      ]);
+
+      //if article fails to add, change body to reflect this
     } catch (error) {
       console.error(error);
+      const updatedArticle = {
+        ...newArticle,
+        article_id: -503,
+        body: "Network Error sending article to the database",
+        article_img_url:
+          "https://learn.microsoft.com/en-us/windows/win32/uxguide/images/mess-error-image15.png",
+      };
+      setArticles((previousArticles) => [
+        updatedArticle,
+        ...previousArticles.filter((article) => article.article_id !== -202),
+      ]);
+
+      //redirect user to topic page
+    } finally {
+      navigate(`/${form.topic}`);
     }
   };
 

@@ -5,7 +5,7 @@ import TimeSince from "../utils/TimeSince";
 import Votes from "./Votes";
 
 function Comment({ props, comments, setComments }) {
-  const { comment_id, votes, created_at, author, body, article_id } = props;
+  const { comment_id, votes, created_at, author, body } = props;
   const { user, userList } = useContext(UserContext);
   const [commentUser, setCommentUser] = useState({});
 

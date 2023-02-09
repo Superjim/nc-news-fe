@@ -12,10 +12,12 @@ function NavBarTopic() {
     setNavbarAll,
   } = useContext(ArticleContext);
 
+  //get a nice fresh list of topics on mount
   useEffect(() => {
     fetchTopics();
   }, [fetchTopics]);
 
+  //updates the state of checked topics (for multiple topic sorting)
   const topicHandler = (topic) => {
     if (checkedTopics.includes(topic)) {
       setCheckedTopics(
@@ -26,10 +28,12 @@ function NavBarTopic() {
     }
   };
 
+  //when user clicks a topic link, set topic to the single value (for all articles of one topic)
   const topicLinkHandler = (topic) => {
     setCheckedTopics([topic]);
   };
 
+  //get the description of the single selected topic
   const getDescription = (slug) => {
     const topic = topics.find((topic) => topic.slug === slug);
     return topic ? topic.description : null;
@@ -38,6 +42,7 @@ function NavBarTopic() {
   return (
     <>
       {navbarAll ? (
+        //checkboxes for each topic
         <div className="navbar-topic-sort">
           <h2>Sort Topics</h2>
           <ul>
@@ -85,6 +90,7 @@ function NavBarTopic() {
           </ul>
         </div>
       ) : (
+        //or just link to other topics (no longer add checkboxes)
         <div className="navbar-topic-sort">
           <h2>Quick Links</h2>
           <Link

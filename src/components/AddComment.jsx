@@ -26,7 +26,7 @@ function AddComment({ comments, setComments, article_id }) {
         username: user.username,
         body: commentBody,
       });
-      // update the temp values of comment if response recieved
+      // update the temp values of optimistically added comment if response recieved
       const updatedComment = {
         ...newComment,
         comment_id: response.data.comment.comment_id,
@@ -37,7 +37,7 @@ function AddComment({ comments, setComments, article_id }) {
         ...comments.filter((comment) => comment.comment_id !== -202),
       ]);
     } catch (error) {
-      // if it fails to add, change body of comment to notify user
+      // if it fails to add, change body of optimistically added comment to notify user
       console.log(error);
       const updatedComment = {
         ...newComment,

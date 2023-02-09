@@ -5,13 +5,14 @@ import {
   BsFillArrowDownCircleFill,
 } from "react-icons/bs";
 
+//something needs to be done about the vote styles being passed on to next pages rendering
 function Votes({ votes, id, type }) {
   const [upVoteColor, setUpVoteColor] = useState("");
   const [downVoteColor, setDownVoteColor] = useState("");
   const [localVotes, setLocalVotes] = useState(votes);
   const [currentVote, setCurrentVote] = useState(0);
 
-  //reset upvote and downvote elements to prevent styles passing onto newly rendered components
+  //reset upvote and downvote elements to prevent styles passing onto newly rendered components (still arnt clickable)
   useEffect(() => {
     setUpVoteColor("");
     setDownVoteColor("");

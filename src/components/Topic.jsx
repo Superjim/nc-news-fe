@@ -1,72 +1,19 @@
 import React, { useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ArticleContext } from "../contexts/ArticleContext";
-import { api } from "../utils/api";
 import Article from "./Article";
 
 function Topic() {
   let { topic_slug } = useParams();
 
-  const {
-    checkedTopics,
-    sortBy,
-    order,
-    limit,
-    page,
-    setPage,
-    setPageAmount,
-    articles,
-    setArticles,
-  } = useContext(ArticleContext);
+  const { articles, fetchArticles, checkedTopics, sortBy, order, limit, page } =
+    useContext(ArticleContext);
 
-  const navigate = useNavigate();
-
+  //this useEffect gets the articles, so only values that change the api query should be in here
+  //if you add the recommended stuff it'll get itself stuck in a topic_slug loop or 10 and isnt very performant
   useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        let topics;
-        if (topic_slug) {
-          topics = topic_slug;
-        } else {
-          topics = checkedTopics.join(",");
-        }
-
-        const response = await api.get(`/articles`, {
-          params: {
-            topic: topics,
-            sort_by: sortBy,
-            order: order,
-            limit: limit,
-            p: page,
-          },
-        });
-        setArticles(response.data.articles);
-        // if changing the page amount would push user out of range of the pages, put them on the last page
-        const pageCalc = Math.ceil(response.data.total_count / limit);
-        if (pageCalc < page) {
-          setPage(pageCalc);
-        }
-        setPageAmount(pageCalc);
-      } catch (error) {
-        console.log(error);
-        navigate("/page-not-found");
-      }
-    };
-
-    fetchArticles();
-  }, [
-    checkedTopics,
-    limit,
-    navigate,
-    order,
-    page,
-    setPage,
-    setPageAmount,
-    sortBy,
-    topic_slug,
-    articles,
-    setArticles,
-  ]);
+    fetchArticles(topic_slug);
+  }, [checkedTopics, sortBy, order, limit, page, articles]);
 
   return (
     <div className="content">

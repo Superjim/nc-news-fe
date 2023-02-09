@@ -42,7 +42,16 @@ function Topic() {
     };
 
     fetchArticles();
-  }, [checkedTopics, limit, order, page, sortBy, topic_slug]);
+  }, [
+    checkedTopics,
+    limit,
+    order,
+    page,
+    setPage,
+    setPageAmount,
+    sortBy,
+    topic_slug,
+  ]);
 
   return (
     <div className="content">

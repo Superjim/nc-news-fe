@@ -27,27 +27,22 @@ function ArticlePage() {
     fetchArticle();
   }, [article_id]);
 
-  //smooth scroll to comments
-  useEffect(() => {
-    setTimeout(() => {
-      commentsRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }, 500);
-  }, [comments]);
-
   return (
     <div className="content">
       <Article props={article} showAll={true} />
       <div ref={commentsRef} className="comments-container">
         <AddComment
-          article_id={article.article_id}
+          article_id={article_id}
           comments={comments}
           setComments={setComments}
         />
         {comments.map((article, index) => (
-          <Comment props={article} key={index} />
+          <Comment
+            props={article}
+            key={index}
+            comments={comments}
+            setComments={setComments}
+          />
         ))}
       </div>
     </div>

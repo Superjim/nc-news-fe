@@ -20,6 +20,7 @@ function Comment({ props, comments, setComments }) {
     } catch (error) {
       // if error, add comment back to local array??
       console.error(error);
+      setComments([props, ...comments]);
     }
   };
 

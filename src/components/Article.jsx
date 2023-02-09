@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { ArticleContext } from "../contexts/ArticleContext";
 import { Link } from "react-router-dom";
 import { FcCollapse, FcExpand } from "react-icons/fc";
 import { AiOutlineComment } from "react-icons/ai";
+import { api } from "../utils/api";
 import Votes from "./Votes";
 import TimeSince from "../utils/TimeSince";
 
 function Article({ props, showAll = false }) {
+  const { user } = useContext(UserContext);
+  const { articles, setArticles } = useContext(ArticleContext);
+
   const {
     article_id,
     article_img_url,
@@ -24,6 +30,21 @@ function Article({ props, showAll = false }) {
     setExpanded(!expanded);
   };
 
+  const handleDelete = async () => {
+    try {
+      // optimistically remove article from local article array
+      setArticles(
+        articles.filter((article) => article.article_id !== article_id)
+      );
+      // delete article from backend
+      await api.delete(`/articles/${article_id}`);
+    } catch (error) {
+      // if error, add article back to local array??
+      console.error(error);
+      setArticles([props, ...articles]);
+    }
+  };
+
   return (
     <div className="article-container">
       <Votes votes={votes} id={article_id} type="article" />
@@ -33,6 +54,11 @@ function Article({ props, showAll = false }) {
           <h5>Author: {author}</h5>
           <TimeSince date={created_at} />
           <h5># {article_id}</h5>
+          {user.username === author && (
+            <button className="delete-article-button" onClick={handleDelete}>
+              Delete Article [X]
+            </button>
+          )}
         </span>
         <h3>{title}</h3>
         <img src={article_img_url} alt={title}></img>

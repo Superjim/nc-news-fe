@@ -54,6 +54,7 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  position: fixed;
 }
 
 /* SIDEBAR */
@@ -75,6 +76,10 @@
 
 .sidebar-container {
   position: fixed;
+}
+
+.navbar-topic-sort {
+  padding: 0 1rem 0 1rem;
 }
 
 [type="checkbox"] {

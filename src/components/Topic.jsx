@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ArticleContext } from "../contexts/ArticleContext";
 import { api } from "../utils/api";
 import Article from "./Article";
 
 function Topic() {
   let { topic_slug } = useParams();
+
+  //this is where i store my array of articles, in the topic component, not the article context
   const [articles, setArticles] = useState([]);
+
   const { checkedTopics, sortBy, order, limit, page, setPage, setPageAmount } =
     useContext(ArticleContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -36,8 +41,9 @@ function Topic() {
           setPage(pageCalc);
         }
         setPageAmount(pageCalc);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
+        // navigate("/page-not-found");
       }
     };
 
@@ -45,6 +51,7 @@ function Topic() {
   }, [
     checkedTopics,
     limit,
+    navigate,
     order,
     page,
     setPage,

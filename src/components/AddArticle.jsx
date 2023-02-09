@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { ArticleContext } from "../contexts/ArticleContext";
 import { api } from "../utils/api";
+import { Uploader } from "uploader"; // Installed by "react-uploader".
+import { UploadButton } from "react-uploader";
 import Article from "./Article";
 
 function AddArticle() {
@@ -15,6 +17,7 @@ function AddArticle() {
     article_img_url: "",
   });
   const [page, setPage] = useState(1);
+  const [postSuccess, setPostSuccess] = useState(false);
 
   const handleChange = (event) => {
     setForm({
@@ -26,6 +29,20 @@ function AddArticle() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    //create a new article with temp values
+    const newArticle = {
+      article_id: -202,
+      title: form.title,
+      topic: form.topic,
+      author: user.username,
+      body: form.body,
+      created_at: new Date().toISOString(),
+      votes: 0,
+      article_img_url: form.article_img_url,
+    };
+
+    //optimistically add it to the array
+
     try {
       const response = await api.post("/articles", form);
       console.log(response.data);
@@ -34,6 +51,13 @@ function AddArticle() {
       console.error(error);
     }
   };
+
+  //file upload
+  const uploader = Uploader({
+    apiKey: "free", // Get production API keys from Upload.io
+  });
+
+  const options = { multi: false };
 
   return (
     <div className="content">
@@ -92,6 +116,7 @@ function AddArticle() {
                   </option>
                 ))}
               </select>
+
               <label htmlFor="article_img_url">
                 <h3>Article Image URL</h3>
               </label>
@@ -101,7 +126,22 @@ function AddArticle() {
                 name="article_img_url"
                 value={form.article_img_url}
                 onChange={handleChange}
+                placeholder="Enter an image URL or..."
               />
+              <UploadButton
+                uploader={uploader}
+                options={options}
+                onComplete={(files) =>
+                  setForm({
+                    ...form,
+                    article_img_url: files.map((x) => x.fileUrl).join("\n"),
+                  })
+                }
+              >
+                {({ onClick }) => (
+                  <button onClick={onClick}>Upload a picture...</button>
+                )}
+              </UploadButton>
               <span className="add-article-button-container">
                 <button disabled>Prev</button>
                 <button type="button" onClick={() => setPage(2)}>

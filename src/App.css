@@ -193,6 +193,45 @@ ul {
   gap: 1rem;
 }
 
+/* ADD ARTICLE */
+
+.add-article-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.add-article-form {
+  background-color: var(--primary);
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 800px;
+}
+
+.add-article-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-article-input-container > input {
+  font-size: 1.2rem;
+}
+
+.add-article-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 1rem;
+}
+
+.add-article-button-container > button {
+  font-size: 1.2rem;
+}
+
 /* COMMENT CONTAINER */
 
 .comment-container {

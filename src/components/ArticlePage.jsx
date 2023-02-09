@@ -4,6 +4,7 @@ import { api } from "../utils/api";
 import AddComment from "./AddComment";
 import Article from "./Article";
 import Comment from "./Comment";
+import NotFound from "./NotFound";
 
 function ArticlePage() {
   //dont move this to context, this should be local to the page
@@ -53,7 +54,7 @@ function ArticlePage() {
         </div>
       ) : (
         <div className="content">
-          <h1>Error 404: Article not found</h1>
+          <NotFound title="Article" />
         </div>
       )}
     </>

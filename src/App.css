@@ -54,8 +54,6 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  position: fixed;
-  padding-top: 8rem;
 }
 
 /* SIDEBAR */
@@ -68,11 +66,6 @@
   padding: 1rem;
   text-transform: capitalize;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  /* position: fixed;
-  right: 0;
-  top: 7rem;
-  height: 100%;
-  min-width: 200px; */
 }
 
 .sidebar-container {

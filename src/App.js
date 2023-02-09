@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar";
 import NotFound from "./components/NotFound";
 import { ArticleProvider } from "./contexts/ArticleContext";
 import { UserProvider } from "./contexts/UserContext";
+import AddArticle from "./components/AddArticle";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               path="/:topic_slug/articles/:article_id"
               element={<ArticlePage />}
             />
+            <Route path="/add-article" element={<AddArticle />} />
             <Route path="/page-not-found" element={<NotFound />} />
           </Routes>
         </ArticleProvider>

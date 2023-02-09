@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
 
 const ArticleContext = createContext();
@@ -22,7 +22,7 @@ const ArticleProvider = (props) => {
   //sidebar states
   const [navbarAll, setNavbarAll] = useState(true);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const fetchTopics = async () => {
     try {

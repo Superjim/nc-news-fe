@@ -13,8 +13,6 @@ function ArticlePage() {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
 
-  // if (!article.article_id) maybe return 404 article not found?
-
   // fetch article and comments
   useEffect(() => {
     const fetchArticle = async () => {

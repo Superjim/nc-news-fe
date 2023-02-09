@@ -2,17 +2,24 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArticleContext } from "../contexts/ArticleContext";
 import { api } from "../utils/api";
-import AddArticle from "./AddArticle";
 import Article from "./Article";
 
 function Topic() {
   let { topic_slug } = useParams();
 
   //this is where i store my array of articles, in the topic component, not the article context
-  const [articles, setArticles] = useState([]);
 
-  const { checkedTopics, sortBy, order, limit, page, setPage, setPageAmount } =
-    useContext(ArticleContext);
+  const {
+    checkedTopics,
+    sortBy,
+    order,
+    limit,
+    page,
+    setPage,
+    setPageAmount,
+    articles,
+    setArticles,
+  } = useContext(ArticleContext);
 
   const navigate = useNavigate();
 

@@ -12,7 +12,7 @@ function NavBarTopic() {
     setNavbarAll,
   } = useContext(ArticleContext);
 
-  //get a nice fresh list of topics on mount
+  //get a nice fresh list of topics
   useEffect(() => {
     fetchTopics();
   }, [fetchTopics]);
@@ -44,7 +44,7 @@ function NavBarTopic() {
       {navbarAll ? (
         //checkboxes for each topic
         <div className="navbar-topic-sort">
-          <h2>Sort Topics</h2>
+          <h3>Topics</h3>
           <ul>
             <li>
               <input
@@ -87,21 +87,16 @@ function NavBarTopic() {
                 </label>
               </li>
             ))}
+            <hr></hr>
           </ul>
         </div>
       ) : (
         //or just link to other topics (no longer add checkboxes)
         <div className="navbar-topic-sort">
-          <h2>Quick Links</h2>
-          <Link
-            onClick={() => {
-              setCheckedTopics([]);
-              setNavbarAll(true);
-            }}
-            to="/"
-          >
-            <h2>Back to All</h2>
-          </Link>
+          <h2>{checkedTopics}</h2>
+          <h4>{getDescription(checkedTopics[0])}</h4>
+          <hr></hr>
+          <h3>Topics</h3>
           <ul>
             {topics.map((topic, index) => (
               <li key={index}>
@@ -117,8 +112,9 @@ function NavBarTopic() {
               </li>
             ))}
           </ul>
-          <h2>{checkedTopics}</h2>
-          <h4>{getDescription(checkedTopics[0])}</h4>
+
+          <h3> </h3>
+          <hr></hr>
         </div>
       )}
     </>

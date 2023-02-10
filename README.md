@@ -1,8 +1,10 @@
 # NC-News-FE
 
+:point_right:[Live Demo](https://jimmit.netlify.app/)
+
 ## About
 
-The NC-News-fe application provides information on several topics and articles, and allows for various actions such as sorting, ordering, and filtering.
+The NC-News-fe application provides information on several topics and articles, and allows for various actions such as sorting, ordering, and filtering. It is the front end project created as part of my Northcoders bootcamp, and designed to work with my back end project here: https://github.com/Superjim/nc-news
 
 - ❗ Warning: The backend is hosted with a free provider, which means it takes a few seconds to wake up if it hasn't been used in a while
 - ❗ Second Warning: I recommend you navigate the website through the sidebar only, using the default back function sometimes breaks things, I still have some polishing to do
@@ -11,7 +13,7 @@ All articles, comments and even topics are added and deleted optimistically. Thi
 
 Media queries allow the application to be displayed on a range of devices including mobile, tablets and of course widescreen monitors.
 
-The application uses conditional rendering quite a lot, the create article form is a step through form allowing a user to preview their article before submitting. The add topic form takes the user to the add article form upon adding a topic.
+The application uses conditional rendering quite a lot, one example is the create article form, it is a step through form allowing a user to preview their article before submitting. Another example is the add topic form, it takes the user to the add article form upon adding a topic.
 
 ## Features
 
@@ -19,13 +21,12 @@ The application uses conditional rendering quite a lot, the create article form 
 
 - View articles related to a specific topic
 - Each topic has a slug and description
-- Topics are rendered dynamically (explain what this means)
+- Topics are rendered on the sidebar with a checkbox to allow sorting, and a link to go directly to the topic page
 
 ### Articles
 
 - View a list of all articles
 - View a specific article
-- Sort articles by date, comment count, and votes
 - Upvote / downvote articles
 - Each article displays the topic, author, time posted (eg. Posted 2 hours and 43 minutes ago, or Posted 3 years and 1 month ago), its article id, title, image, body and a link to the article page where comments can left and viewed
 

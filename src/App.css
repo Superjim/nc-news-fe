@@ -8,29 +8,12 @@
 
 /* MAIN CONTAINERS */
 
-.App {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr 0.5fr;
-
-  gap: 1rem;
-  grid-template-areas:
-    "header header header"
-    "content content sidebar"
-    "content content sidebar";
-}
-
 /* HEADER */
 
 .header {
-  grid-area: header;
   background-color: var(--primary);
   color: var(--primary-text);
-  height: 4rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 0 3rem 0 3rem;
 }
 
 .profile-container {
@@ -60,18 +43,13 @@
 
 .sidebar {
   grid-area: sidebar;
-  min-width: 300px;
+
   background-color: var(--secondary);
   color: var(--secondary-text);
   border-top-left-radius: 0.5rem;
   padding: 1rem;
   text-transform: capitalize;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.sidebar-container {
-  position: fixed;
-  min-width: 300px;
 }
 
 .navbar-topic-sort,
@@ -200,7 +178,6 @@ ul {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   padding: 1rem;
-  width: 800px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -382,3 +359,139 @@ ul {
 
   gap: 5rem;
 }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .App {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .article-content-container {
+    max-width: 80%;
+  }
+
+  .sidebar-button {
+    display: 1;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .App {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .article-content-container {
+    max-width: 80%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .App {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 0.5fr;
+
+    gap: 1rem;
+    grid-template-areas:
+      "header header header"
+      "content content sidebar"
+      "content content sidebar";
+  }
+
+  .sidebar-button {
+    display: none;
+  }
+
+  .sidebar {
+    min-width: 200px;
+  }
+
+  .header {
+    grid-area: header;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    padding: 0 3rem 0 3rem;
+  }
+
+  .sidebar-container {
+    min-width: 200px;
+    position: fixed;
+  }
+
+  .article-content-container {
+    max-width: 500px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .sidebar {
+    min-width: 200px;
+  }
+
+  .sidebar-container {
+    min-width: 200px;
+  }
+
+  .article-content-container {
+    max-width: 600px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .sidebar {
+    min-width: 300px;
+  }
+
+  .sidebar-container {
+    min-width: 300px;
+  }
+
+  .article-content-container {
+    max-width: 800px;
+  }
+}
+
+/* DEBUG MODE */
+/* 
+@media only screen and (min-width: 600px) {
+  .App {
+    background-color: red;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .App {
+    background-color: green;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .App {
+    background-color: yellow;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .App {
+    background-color: pink;
+  }
+} */

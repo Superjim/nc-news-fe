@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
 
@@ -33,6 +34,8 @@ const ArticleProvider = (props) => {
     }
   };
 
+  const navigate = useNavigate();
+
   //if the user is linked to a specific topic page, eg .xyz/socks, it will search articles of topic socks (whatevers in the params)
   //if params undefined, then it looks at the topic checkbox state and fetch all topics in the array
   const fetchArticles = async (topic_slug) => {
@@ -60,9 +63,10 @@ const ArticleProvider = (props) => {
         setPage(pageCalc);
       }
       setPageAmount(pageCalc);
+      //if the topic doesnt exist
     } catch (err) {
       console.log(err);
-      // navigate("/page-not-found");
+      navigate("/page-not-found");
     }
   };
 
@@ -85,6 +89,7 @@ const ArticleProvider = (props) => {
         setArticles,
         fetchArticles,
         topics,
+        setTopics,
         fetchTopics,
         navbarAll,
         setNavbarAll,

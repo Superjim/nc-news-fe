@@ -18,7 +18,6 @@ function AddArticle() {
     article_img_url: "",
   });
   const [page, setPage] = useState(1);
-  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 

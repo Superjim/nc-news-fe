@@ -12,6 +12,9 @@ function Sidebar() {
         <Link to="/add-article">
           <h2>Add new article</h2>
         </Link>
+        <Link to="/add-topic">
+          <h2>Add new topic</h2>
+        </Link>
       </div>
     </div>
   );

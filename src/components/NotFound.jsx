@@ -19,6 +19,26 @@ function NotFound({ title = "Page" }) {
       >
         <h2>Back to All</h2>
       </Link>
+      <Link
+        to="/add-article"
+        onClick={() => {
+          //reset the fetch articles state and go home
+          setCheckedTopics([]);
+          setNavbarAll(true);
+        }}
+      >
+        <h2>Add new article</h2>
+      </Link>
+      <Link
+        to="/add-topic"
+        onClick={() => {
+          //reset the fetch articles state and go home
+          setCheckedTopics([]);
+          setNavbarAll(true);
+        }}
+      >
+        <h2>Add new topic</h2>
+      </Link>
     </div>
   );
 }

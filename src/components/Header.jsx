@@ -20,7 +20,7 @@ function Header() {
   return (
     <div className="header">
       <h1>{title}</h1>
-      <h1>search</h1>
+
       <Profile />
     </div>
   );

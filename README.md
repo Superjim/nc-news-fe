@@ -7,7 +7,6 @@
 The NC-News-fe application provides information on several topics and articles, and allows for various actions such as sorting, ordering, and filtering. It is the front end project created as part of my Northcoders bootcamp, and designed to work with my back end project here: https://github.com/Superjim/nc-news
 
 - ❗ Warning: The backend is hosted with a free provider, which means it takes a few seconds to wake up if it hasn't been used in a while
-- ❗ Second Warning: I recommend you navigate the website through the sidebar only, using the default back function sometimes breaks things, I still have some polishing to do
 
 All articles, comments and even topics are added and deleted optimistically. This means default values for things like article/comment ID and time posted are assigned a temporary value and immediately created locally, and then updated upon a succesful response from the API. If an error response is recieved, the new article or comments body is updated to reflect this.
 

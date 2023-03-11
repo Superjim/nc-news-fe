@@ -2,6 +2,9 @@
 
 :point_right:[Live Demo](https://jimmit.netlify.app/)
 
+
+:point_right:[Back End](https://github.com/Superjim/nc-news)
+
 ## About
 
 The NC-News-fe application provides information on several topics and articles, and allows for various actions such as sorting, ordering, and filtering. It is the front end project created as part of my Northcoders bootcamp, and designed to work with my back end project here: https://github.com/Superjim/nc-news
